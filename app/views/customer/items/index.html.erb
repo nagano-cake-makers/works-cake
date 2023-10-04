@@ -1,0 +1,24 @@
+<h1>商品一覧</h1>
+<%= form_with url: items_path, method: :get, class: "search-form" do %>
+  <%= text_field_tag :genre_name, params[:genre_name], placeholder: "ジャンルを検索" %>
+  <%= submit_tag "検索", class: "btn btn-primary btn-sm" %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>商品名</th>
+      <th>価格</th>
+      <!-- 他の商品情報のヘッダー -->
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.price %>円</td>
+        <!-- 他の商品情報のセル -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>

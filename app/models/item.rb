@@ -1,16 +1,16 @@
 class Item < ApplicationRecord
   has_many :order_details, dependent: :destroy
   has_many :cart_items, dependent: :destroy
-  belong_to :genre
+  belongs_to :genre
   has_many :orders, through: :order_details
 
-  attachment :image
+  has_one_attached :image
 
-  varidates :name, presence: true
-  varidates :image, presence: true
-  varidates :introduction, presence: true
-  varidates :price, presence: true
-  varidates :genre_id, presence: true
+  validates :name, presence: true
+  validates :image, presence: true
+  validates :introduction, presence: true
+  validates :price, presence: true, numericality: {greater_than: 0}
+  validates :genre_id, presence: true
 
   def self.search_for(content,method)
     return none if content.blank?

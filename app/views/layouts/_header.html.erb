@@ -11,9 +11,9 @@
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
       <ul class="navbar-nav">
-        <% if customer_signed_in? %>
+         <% if customer_signed_in? %>
           <li class="nav-item active">
-            <span class="nav-link text-dark">ようこそ<%= full_name(current_customer)%>さん</span>
+           <span class="nav-link text-dark">ようこそ<%= full_name(current_customer)%>さん</span>
           </li>
           <li class="nav-item">
             <%= link_to "マイページ", customers_path(current_customer), class: "btn btn-outline-secondary mx-3 my-1"%>
@@ -27,37 +27,38 @@
           <li class="nav-item">
             <%= link_to "ログアウト", destroy_customer_session_path, method: :delete,class: 'btn btn-outline-secondary mx-3 my-1'%>
           </li>
-        <% elsif admin_signed_in? %>
-          <li class="nav-item">
-            <%= link_to "商品一覧", admin_items_path,class: 'btn btn-outline-secondary mx-3 my-1' %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "会員一覧", admin_customers_path, class:'btn btn-outline-secondary mx-3 my-1'%>
-          </li>
-          <li class="nav-item">
-            <%= link_to "注文履歴一覧", admin_orders_path, class:'btn btn-outline-secondary mx-3 my-1'%>
-          </li>
-          <li class="nav-item">
-            <%= link_to "ジャンル一覧", admin_genres_path,class: 'btn btn-outline-secondary mx-3 my-1'%>
-          </li>
-          <li class="nav-item">
-            <%= link_to "ログアウト",destroy_admin_session_path, method: :delete,class: 'btn btn-outline-secondary mx-3 my-1'%>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "about", customer_about_path,class: 'btn btn-outline-secondary mx-3 my-1' %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "商品一覧", items_path,class: 'btn btn-outline-secondary mx-3 my-1' %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "新規登録", new_customer_registration_path,class: 'btn btn-outline-secondary mx-3 my-1'%>
-          </li>
-          <li class="nav-item">
-            <%= link_to "ログイン", new_customer_session_path,class: 'btn btn-outline-secondary mx-3 my-1'%>
-          </li>
-        <% end %>
+         <% elsif admin_signed_in? %>
+           <li class="nav-item">
+             <%= link_to "商品一覧", admin_items_path,class: 'btn btn-outline-secondary mx-3 my-1' %>
+           </li>
+           <li class="nav-item">
+             <%= link_to "会員一覧", admin_customers_path, class:'btn btn-outline-secondary mx-3 my-1'%>
+           </li>
+           <li class="nav-item">
+             <%= link_to "注文履歴一覧", admin_orders_path, class:'btn btn-outline-secondary mx-3 my-1'%>
+           </li>
+           <li class="nav-item">
+             <%= link_to "ジャンル一覧", admin_genres_path,class: 'btn btn-outline-secondary mx-3 my-1'%>
+           </li>
+           <li class="nav-item">
+             <%= link_to "ログアウト",destroy_admin_session_path, method: :delete,class: 'btn btn-outline-secondary mx-3 my-1'%>
+           </li>
+         <% else %>
+           <li class="nav-item">
+             <%= link_to "about", customer_about_path,class: 'btn btn-outline-secondary mx-3 my-1' %>
+           </li>
+           <li class="nav-item">
+             <%= link_to "商品一覧", items_path,class: 'btn btn-outline-secondary mx-3 my-1' %>
+           </li>
+           <li class="nav-item">
+             <%= link_to "新規登録", new_customer_registration_path,class: 'btn btn-outline-secondary mx-3 my-1'%>
+           </li>
+           <li class="nav-item">
+             <%= link_to "ログイン", new_customer_session_path,class: 'btn btn-outline-secondary mx-3 my-1'%>
+           </li>
+          <% end %>
       </ul>
     </div>
-  </nav>
+
+ </nav>
 </header>

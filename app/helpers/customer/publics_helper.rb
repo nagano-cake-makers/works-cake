@@ -1,0 +1,2 @@
+module Customer::PublicsHelper
+end
