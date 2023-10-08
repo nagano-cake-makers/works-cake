@@ -3,6 +3,6 @@
     <%= f.text_field :content, placeholder: "\uf002 Search", class: "fa" %>
     <%= f.select :model, options_for_select({"Customer" => "customer","Item" => "item"})%>
     <%= f.select :method, options_for_select({"前方一致" => "forward", "後方一致" => "backword", "部分一致" => "patial"})%>
-    <%= f.submit "検索", class:"btn btn-outline-secondary ml-2"%>
+    <%= f.submit "Search", class:"btn btn-outline-secondary ml-2"%>
   </div>
 <% end %>

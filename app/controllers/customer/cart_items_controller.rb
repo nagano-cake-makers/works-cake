@@ -10,7 +10,7 @@ class Customer::CartItemsController < ApplicationController
     @cart_item.customer_id = current_customer.id
     @old_cart_item = CartItem.find_by(item: @cart_item.item)
     if @old_cart_item.present? and @cart_item.valid?
-      @cart_item.count += @old_cart_item.count
+      @cart_item.quantity += @old_cart_item.quantity
       @old_cart_item.destroy
     end
     if @cart_item.save
@@ -22,7 +22,7 @@ class Customer::CartItemsController < ApplicationController
 
   def update
     @cart_item = CartItem.find(params["id"])
-    @cart_item.update(count: params[:cart_item][:count].to_i)
+    @cart_item.update(quantity: params[:cart_item][:quantity].to_i)
     @cart_item.save
     redirect_to cart_items_path
   end
@@ -41,6 +41,6 @@ class Customer::CartItemsController < ApplicationController
 
   private
   def cart_items_params
-    params.require(:cart_item).permit(:customer_id, :item_id, :count)
+    params.require(:cart_item).permit(:customer_id, :item_id, :quantity)
   end
 end

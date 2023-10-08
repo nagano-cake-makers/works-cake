@@ -6,7 +6,7 @@ class Customer::SessionsController < Devise::SessionsController
 
   protected
 
-  def reject_customer
+  def customer_state
     @customer = Customer.find_by(email: params[:customer][:email].downcase)
     if @customer
       if (@customer.valid_password?(params[:customer][:password]) && (@customer.active_for_authentication? == false))

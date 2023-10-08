@@ -1,4 +1,9 @@
 ja:
+  enums:
+    order:
+      payment_method:
+        credit_card: "クレジットカード"
+        transfer: "銀行振込"
   activerecord:
     errors:
       messages:
@@ -117,6 +122,7 @@ ja:
       exclusion: は予約されています
       greater_than: は%{count}より大きい値にしてください
       greater_than_or_equal_to: は%{count}以上の値にしてください
+      in: は%{count}の範囲に含めてください
       inclusion: は一覧にありません
       invalid: は不正な値です
       less_than: は%{count}より小さい値にしてください
