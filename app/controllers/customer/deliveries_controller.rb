@@ -7,7 +7,7 @@ class Customer::DeliveriesController < ApplicationController
   end
 
   def create
-    @delivery = Delivery.new(address_params)
+    @delivery = Delivery.new(delivery_params)
 	  @delivery.customer_id = current_customer.id
     @deliveries = current_customer.deliveries
   	  @delivery.save
@@ -18,7 +18,6 @@ class Customer::DeliveriesController < ApplicationController
   def destroy
     @delivery = Delivery.find(params[:id])
 	  @delivery.destroy
-    @deliveries = current_customer.delivery
     flash.now[:alert] = "配送先を削除しました"
 	  redirect_to deliveries_path
   end
@@ -28,10 +27,10 @@ class Customer::DeliveriesController < ApplicationController
   end
 
   def update
-    @delibery = Delivery.find(params[:id])
+    @delivery = Delivery.find(params[:id])
     if @delivery.update(delivery_params)
       flash[:success] = "配送先を変更しました"
-      redirect_to deliberies_path
+      redirect_to deliveries_path
     else
       render "edit"
     end
@@ -39,8 +38,8 @@ class Customer::DeliveriesController < ApplicationController
 
   private
 
-  def delibery_params
-  	params.require(:address).permit(:postal_code, :address, :name)
+  def delivery_params
+  	params.require(:delivery).permit(:postal_code, :address, :name)
   end
 
 end

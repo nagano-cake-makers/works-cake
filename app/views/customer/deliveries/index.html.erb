@@ -2,10 +2,10 @@
   <div class="col-xs-12">
     <h2 class="head-line text-center title_h2">配送先登録/一覧</h2>
       <div id="error">
-        <%= render "layouts/error_message", resource: @address %>
+        <%= render "layouts/error_message", resource: @delivery %>
       </div>
-      <%= form_with(model: @address, :url => {:controller => "public/addresses"}) do |f| %>
-        <div class="addres col-xs-10">
+      <%= form_with(model: @delivery, url: deliveries_path) do |f| %>
+        <div class="delivery col-xs-10">
           <div class="form-group col-xs-12">
             <%= f.label :"郵便番号(ハイフンなし)" ,class: "col-xs-3 control-label" %>
             <%= f.text_field :postal_code, class: "col-xs-4 form-control-static postal_code" %>
@@ -25,7 +25,7 @@
       <% end %>
 
       <div id="create">
-        <% if @addresses.present? %>
+        <% if @deliveries.present? %>
           <table class="table table-hover table-bordered">
             <thead>
               <tr class="info">
@@ -37,22 +37,22 @@
             </thead>
 
             <tbody>
-              <% @addresses.each do |address| %>
-                <tr id="destroy-<%= address.id %>">
+              <% @deliveries.each do |delivery| %>
+                <tr id="destroy-<%= delivery.id %>">
                   <td>
-                      <%= address.postal_code %>
+                      <%= delivery.postal_code %>
                   </td>
                   <td class="text-left">
-                      <%= address.address %>
+                      <%= delivery.address %>
                   </td>
                   <td class="text-left">
-                      <%= address.name %>
+                      <%= delivery.name %>
                   </td>
                   <td>
-                      <%= link_to "編集する",edit_address_path(address), class: "glyphicon glyphicon-pencil btn-sm btn-primary" %>
+                      <%= link_to "編集する",edit_delivery_path(delivery), class: "glyphicon glyphicon-pencil btn-sm btn-primary" %>
                   </td>
                    <td>
-                      <%= link_to "削除する",address_path(address), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, remote: true, class: "glyphicon glyphicon-trash btn-sm btn-danger destroy_book_#{address.id}" %>
+                      <%= link_to "削除する",delivery_path(delivery), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, remote: true, class: "glyphicon glyphicon-trash btn-sm btn-danger destroy_book_#{delivery.id}" %>
                   </td>
                 </tr>
               <% end %>

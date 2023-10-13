@@ -3,6 +3,24 @@
 class Customer::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
+  
+  private
+
+  def sign_up_params
+    params.require(:customer).permit(
+      :last_name,
+      :first_name,
+      :last_name_kana,
+      :first_name_kana,
+      :email,
+      :postal_code,
+      :address,
+      :telephone_number,
+      :password,
+      :password_confirmation
+    )
+  end
+
 
   # GET /resource/sign_up
   # def new

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     }
 
     namespace :admin do
+      root to: 'orders#index'  # 管理者トップページへのルート
       get '/search' => 'search#search'
       resources :customers, only: [:index, :show, :edit, :update]
       resources :items, only: [:index, :new, :create, :show, :edit, :update]
@@ -37,7 +38,7 @@ Rails.application.routes.draw do
 
     get 'about' => 'customer/homes#about', as: 'customer_about'
     root 'customer/homes#top'
-    get 'my_page' => 'customer/customers#show', as: 'customer_my_page'
+    get 'my_page' => 'customer/publics#show', as: 'customer_my_page'
     get '/items' => 'customer/items#index'
     get '/items/:id' => 'customer/items#show', as: :customer_item
     get '/customers/contact' => 'customer/customers#contact'
@@ -53,7 +54,7 @@ Rails.application.routes.draw do
       resource :publics, only: [:edit, :update, :show] do
         collection do
           get 'unsubscribe'
-          patch 'withdraw'
+          patch 'withdraw', to: 'publics#withdraw'
         end
       end
       resources :cart_items, only: [:index, :update, :create, :destroy] do
