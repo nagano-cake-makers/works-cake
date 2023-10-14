@@ -32,9 +32,11 @@
             <li class="nav-item">
               <%= link_to "商品一覧", admin_items_path, class: 'btn btn-outline-secondary mx-3 my-1' %>
             </li>
-            <li class="nav-item">
-              <%= link_to "会員一覧", admin_customer_path, class:'btn btn-outline-secondary mx-3 my-1'%>
-            </li>
+            <% if current_customer %>
+              <li class="nav-item">
+                <%= link_to "会員一覧", admin_customer_path(current_customer), class:'btn btn-outline-secondary mx-3 my-1'%>
+              </li>
+            <% end %>
             <li class="nav-item">
               <%= link_to "注文履歴一覧", admin_orders_path, class:'btn btn-outline-secondary mx-3 my-1'%>
             </li>

@@ -10,18 +10,18 @@
       email: "test#{n + 1}@test.com",
       first_name: "名#{n + 1}",
       last_name: "姓#{n + 1}",
-      kana_first_name: "メイ",
-      kana_last_name: "セイ",
+      first_name_kana: "メイ",
+      last_name_kana: "セイ",
       password: "123456",
       postal_code: "1234567",
       address: "東京都渋谷区神南1丁目19-11 パークウェースクエア2 4階#{n + 1}",
-      phone_number: "09012345678"
+      telephone_number: "09012345678"
     )
 end
 
   Admin.create!(
-    email: "admin@admin",
-    password: "adminadmin"
+    email: "kashy@kashy.com",
+    password: "kashykashy"
   )
 
   Genre.create!(
@@ -35,7 +35,7 @@ end
   Genre.create!(
      name: "マカロン",
   )
-  
+
   Genre.create!(
      name: "プリン",
   )
@@ -66,7 +66,7 @@ end
     is_active: [['販売中', true], ['販売停止', false]],
     image: open("./app/assets/images/lemon_cake.jpg")
   )
-  
+
   Item.create!(
     genre_id: 2,
     name: "チーズケーキ",
@@ -75,7 +75,7 @@ end
     is_active: [['販売中', true], ['販売停止', false]],
     image: open("./app/assets/images/cheeze.jpg")
   )
-  
+
   Item.create!(
     genre_id: 2,
     name: "シュークリーム",
@@ -84,7 +84,7 @@ end
     is_active: [['販売中', true], ['販売停止', false]],
     image: open("./app/assets/images/creame.jpg")
   )
-  
+
   Item.create!(
     genre_id: 3,
     name: "マカロン",
@@ -93,7 +93,7 @@ end
     is_active: [['販売中', true], ['販売停止', false]],
     image: open("./app/assets/images/animal.jpg")
   )
-  
+
   Item.create!(
     genre_id: 4,
     name: "極上プリン",
@@ -102,8 +102,8 @@ end
     is_active: [['販売中', true], ['販売停止', false]],
     image: open("./app/assets/images/purin.jpg")
   )
-  
-  
+
+
 
   9.times do |n|
     Address.create!(

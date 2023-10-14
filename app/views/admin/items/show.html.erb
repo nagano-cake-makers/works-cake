@@ -3,7 +3,7 @@
   <h2 class="mt-5 text-center">商品詳細</h2>
     <div class="row align-items-center m-5">
       <div class="col-lg text-center mb-5">
-        <%= attachment_image_tag @item, :image, :size => '300x250'%>
+        <%= file_field_tag 'item[image]', size: '300x250' %>
       </div>
       <div class="col-lg">
           <table class="table">

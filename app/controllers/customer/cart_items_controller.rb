@@ -14,21 +14,27 @@ class Customer::CartItemsController < ApplicationController
       @old_cart_item.destroy
     end
     if @cart_item.save
-      redirect_to cart_items_path
+      redirect_to new_order_path
     else
-      render ("items/show")
+      @item = Item.find_by(id: @cart_item.item_id)
+      if @item.nil?
+      # Handle the case where the item could not be found
+        redirect_to root_path, alert: "Item not found"
+      else
+        render "customer/items/show"
+      end
     end
   end
 
   def update
-    @cart_item = CartItem.find(params["id"])
+    @cart_item = CartItem.find(params[:id])
     @cart_item.update(quantity: params[:cart_item][:quantity].to_i)
     @cart_item.save
     redirect_to cart_items_path
   end
 
   def destroy
-    @cart_item = CartItem.find(params["id"])
+    @cart_item = CartItem.find(params[:id])
     @cart_item.destroy
     redirect_to cart_items_path
   end

@@ -26,7 +26,7 @@
             </tr>
             <tr>
               <th class="text-center">電話番号</th>
-              <td><%= @customer.phone_number%></td>
+              <td><%= @customer.telephone_number%></td>
             </tr>
             <tr>
               <th class="text-center">メールアドレス</th>
@@ -34,7 +34,7 @@
             </tr>
             <tr>
               <th class="text-center">会員ステータス</th>
-              <% if @customer.is_deleted == true%>
+              <% if @customer.is_active == false%>
                <td class="text-secondary">退会済み</td>
               <% else %>
                <td class="text-success">有効</td>

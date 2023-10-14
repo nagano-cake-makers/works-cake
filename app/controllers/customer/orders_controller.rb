@@ -13,7 +13,7 @@ class Customer::OrdersController < ApplicationController
 
   def new
     @order = Order.new
-    @addresses = current_customer.addresses
+    @deliveries = current_customer.deliveries
   end
 
   def confirm
@@ -70,7 +70,7 @@ class Customer::OrdersController < ApplicationController
       @order_detail.item_id = cart_item.item_id
       @order_detail.order_id = @order.id
       @order_detail.count = cart_item.count
-      @order_detail.price = cart_item.item.price * cart_item.count 
+      @order_detail.price = cart_item.item.price * cart_item.count
       @order_detail.save
       end
     # 最後にカートを全て削除する
