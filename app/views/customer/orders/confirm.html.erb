@@ -15,7 +15,7 @@
           <% @cart_items.each do |cart| %>
             <tr>
               <td class="text-left">
-                <%= attachment_image_tag( cart.item, :image, size: "60x50") %>
+                <%= image_tag url_for(cart.item.image), size: "60x50" %>
                 <%= cart.item.name %>
               </td>
               <td class="text-right">
@@ -73,7 +73,7 @@
 
   <div class="row">
     <h3 class="mx-auto">
-      <%= form_with model: @order, url: orders_path, method: :post, local: true do |f|%>
+      <%= form_with model: @order, url: post_confirm_order_path, method: :post, local: true do |f|%>
         <%= f.hidden_field :payment_method %>
         <%= f.hidden_field :postal_code%>
         <%= f.hidden_field :address%>

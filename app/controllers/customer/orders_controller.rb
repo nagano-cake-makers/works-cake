@@ -34,7 +34,7 @@ class Customer::OrdersController < ApplicationController
 
     # my_addressに2が入っていれば（配送先一覧）
     elsif params[:order][:my_address] == "2"
-      ship = Address.find(params[:order][:address_id])
+      ship = Delivery.find(params[:order][:delivery_id])
       @order.postal_code = ship.postal_code
       @order.address = ship.address
       @order.name = ship.name
@@ -48,7 +48,7 @@ class Customer::OrdersController < ApplicationController
 
     # 有効かどうかの確認
       unless @order.valid? == true
-        @addresses = Address.where(customer: current_customer)
+        @deliveries = Delivery.where(customer: current_customer)
         render :new
       end
     end
@@ -60,7 +60,7 @@ class Customer::OrdersController < ApplicationController
 
     # 情報入力に新規配送先があれば保存
     if params[:order][:ship] =="1"
-      current_customer.address.create(address_params)
+      current_customer.deliveries.create(delivery_params)
     end
 
        # カート商品の情報を注文履歴に移動させる
@@ -76,10 +76,10 @@ class Customer::OrdersController < ApplicationController
     # 最後にカートを全て削除する
     @cart_items.destroy_all
 
-    redirect_to thanx_orders_path
+    redirect_to thanks_orders_path
   end
 
-  def thanx
+  def thanks
   end
 
   private
@@ -87,7 +87,7 @@ class Customer::OrdersController < ApplicationController
     params.require(:order).permit(:postal_code, :address, :name, :payment_method, :total_payment)
   end
 
-  def address_params
+  def delivery_params
     params.require(:order).permit(:postal_code, :address, :name)
   end
 end

@@ -41,7 +41,8 @@ Rails.application.routes.draw do
     get 'my_page' => 'customer/publics#show', as: 'customer_my_page'
     get '/items' => 'customer/items#index'
     get '/items/:id' => 'customer/items#show', as: :customer_item
-    get '/customers/contact' => 'customer/customers#contact'
+    get '/orders/confirm', to: 'customer/orders#confirm', as: :get_confirm_order
+    post '/orders/confirm', to: 'customer/orders#confirm', as: :post_confirm_order
 
     scope module: :customer do
       resources :items, only: [:index, :show] do
