@@ -17,11 +17,16 @@ class Customer::OrdersController < ApplicationController
   end
 
   def confirm
+    if params[:order].nil?
+      flash[:error] = "注文情報が見つかりません"
+      redirect_to new_order_path and return
+    end
+
     @cart_items = current_customer.cart_items
 
-    @order = Order.new(
-      customer: current_customer,
-      payment_method: params[:order][:payment_method])
+    @order = Order.new
+    customer = current_customer
+    payment_method = params[:order][:payment_method].to_i
 
     # total_paymentに請求額を入れる billingはhelperで定義
     @order.total_payment = billing(@order)
@@ -55,29 +60,38 @@ class Customer::OrdersController < ApplicationController
   end
 
   def create
-    @order = current_customer.orders.new(order_params)
-    @order.save
-
-    # 情報入力に新規配送先があれば保存
-    if params[:order][:ship] =="1"
-      current_customer.deliveries.create(delivery_params)
-    end
-
-       # カート商品の情報を注文履歴に移動させる
-    @cart_items = current_customer.cart_items
-    @cart_items.each do |cart_item|
-      @order_detail = OrderDetail.new
-      @order_detail.item_id = cart_item.item_id
-      @order_detail.order_id = @order.id
-      @order_detail.count = cart_item.count
-      @order_detail.price = cart_item.item.price * cart_item.count
-      @order_detail.save
+  　@order = current_customer.orders.new(order_params)
+    if @order.save
+      if params[:order][:ship] =="1"
+        current_customer.deliveries.create(delivery_params)
+        @cart_items = current_customer.cart_items
+        @cart_items.each do |cart_item|
+          @order_detail = OrderDetail.new
+          @order_detail.item_id = cart_item.item_id
+          @order_detail.order_id = @order.id
+          @order_detail.count = cart_item.count
+          @order_detail.price = cart_item.item.price * cart_item.count
+          if @order_detail.save
+            @cart_items.destroy_all
+          else
+            # 注文詳細の保存に失敗したときのエラーハンドリング
+            flash[:error] = "注文詳細を保存できませんでした"
+            render :new and return
+          end
+        end
+        redirect_to thanks_orders_path
+      else
+        # params[:order][:ship]が"1"でないときのエラーハンドリング
+        flash[:error] = "お届け先の内容に不備があります"
+        render :new and return
       end
-    # 最後にカートを全て削除する
-    @cart_items.destroy_all
-
-    redirect_to thanks_orders_path
+    else
+      # 注文の保存に失敗したときのエラーハンドリング
+      flash[:error] = "注文を保存できませんでした"
+      render :new and return
+    end
   end
+
 
   def thanks
   end

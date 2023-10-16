@@ -42,7 +42,7 @@
               <td><p><%= order_detail.count%></p></td>
               <td><p><%= sub_price(order_detail)%></p></td>
               <td>
-                <%= form_with(model: order_detail, url: admin_order_details_path(order_detail.id),method: :patch, local: true) do |f|%>
+                <%= form_with(model: order_detail, url: admin_order_order_detail_path(order_detail.id),method: :patch, local: true) do |f|%>
                 <%= f.select :making_status, OrderDetail.making_statuses.keys, class:"making_status"%>
                 <%= f.submit "更新", class:"btn btn-success"%>
                 <% end %>
