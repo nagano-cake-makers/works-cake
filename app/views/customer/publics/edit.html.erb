@@ -2,7 +2,7 @@
   <h2 class="my-5">会員情報編集</h2>
   <div class="row">
     <%= form_with model:@customer,url:update_customer_public_path, method: :patch, local: true do |f|%>
-      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
       <div class="col-xs-12">
         <div class="form-group row">
           <%= f.label :"氏名",class:"col-4"%>
@@ -38,7 +38,7 @@
 
         <div>
           <%= f.submit "編集内容を保存する",class:"btn btn-success mr-5"%>
-          <%= link_to "退会する", withdraw_publics_path, method: :patch, class:"btn btn-danger ml-5"%>
+          <%= link_to "退会する", withdraw_publics_path, class:"btn btn-danger ml-5"%>
         </div>
       <% end %>
       </div>

@@ -24,7 +24,8 @@ class Customer::OrdersController < ApplicationController
 
     @cart_items = current_customer.cart_items
 
-    @order = Order.new
+    @order = Order.new(order_params)
+    @order.customer_id = current_customer.id
     customer = current_customer
     payment_method = params[:order][:payment_method].to_i
 
@@ -46,10 +47,11 @@ class Customer::OrdersController < ApplicationController
 
     # my_addressに3が入っていれば(新配送先)
     elsif params[:order][:my_address] == "3"
-      @order.postal_code = params[:order][:postal_code]
-      @order.address = params[:order][:address]
-      @order.name = params[:order][:name]
-      @ship = "1"
+      @delivery = current_customer.deliveries.create(delivery_params)
+      @order.postal_code = @delivery.postal_code
+      @order.address = @delivery.address
+      @order.name = @delivery.name
+
 
     # 有効かどうかの確認
       unless @order.valid? == true
@@ -60,10 +62,8 @@ class Customer::OrdersController < ApplicationController
   end
 
   def create
-  　@order = current_customer.orders.new(order_params)
-    if @order.save
-      if params[:order][:ship] =="1"
-        current_customer.deliveries.create(delivery_params)
+    @order = current_customer.orders.new(order_params)
+    if @order.save!
         @cart_items = current_customer.cart_items
         @cart_items.each do |cart_item|
           @order_detail = OrderDetail.new
@@ -80,11 +80,7 @@ class Customer::OrdersController < ApplicationController
           end
         end
         redirect_to thanks_orders_path
-      else
-        # params[:order][:ship]が"1"でないときのエラーハンドリング
-        flash[:error] = "お届け先の内容に不備があります"
-        render :new and return
-      end
+
     else
       # 注文の保存に失敗したときのエラーハンドリング
       flash[:error] = "注文を保存できませんでした"
@@ -102,6 +98,6 @@ class Customer::OrdersController < ApplicationController
   end
 
   def delivery_params
-    params.require(:order).permit(:postal_code, :address, :name)
+    params.require(:delivery).permit(:postal_code, :address, :name)
   end
 end

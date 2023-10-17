@@ -17,8 +17,10 @@ class Customer::PublicsController < ApplicationController
   end
 
   def unsubscribe
-
+    @customer = current_customer
+    render :withdraw
   end
+
 
   def withdraw
     @customer = current_customer

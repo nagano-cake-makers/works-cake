@@ -1,3 +1,4 @@
+
 <div class="img-wrap">
   <% if @item.image.attached? %>
     <%= image_tag url_for(@item.image), width: "50%", height: "300px" %>
@@ -5,6 +6,9 @@
     <%= image_tag "no_image.jpg", width: "50%", height: "300px" %>
   <% end %>
 </div>
+<% if flash[:danger] %>
+  <%= flash[:danger] %>
+<% end %>
 <h3><%= @item.name %></h3>
 <p><%= @item.introduction %></p>
 <% if @item.is_active == true %>

@@ -50,6 +50,15 @@ Rails.application.routes.draw do
           get 'search'
         end
       end
+
+      resource :publics, only: [:edit, :update, :show] do
+        collection do
+          get 'unsubscribe'
+          patch 'withdraw'
+          get 'withdraw', to: 'publics#unsubscribe'
+        end
+      end
+
       get 'edit/publics' => 'publics#edit', as: :edit_customer_public
       patch 'update/publics' => 'publics#update', as: :update_customer_public
       resource :publics, only: [:edit, :update, :show] do
